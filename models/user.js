@@ -29,21 +29,29 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
+    avatarURL: {
+      type: String,
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
 
 const userJoiSchema = Joi.object({
-  password: Joi.string().required(),
+  password: Joi.string().required().messages({ 'any.required': 'missing field password' }),
   email: Joi.string()
     .pattern(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
-    .required(),
+    .required()
+    .messages({ 'any.required': 'missing field email' }),
   subscription: Joi.string(),
   token: Joi.string(),
 });
 
 const subscriptionJoiSchema = Joi.object({
-  subscription: Joi.string().valid('starter', 'pro', 'business').required(),
+  subscription: Joi.string()
+    .valid('starter', 'pro', 'business')
+    .required()
+    .messages({ 'any.required': 'missing field subscription' }),
 });
 
 const User = model('user', userSchema);
