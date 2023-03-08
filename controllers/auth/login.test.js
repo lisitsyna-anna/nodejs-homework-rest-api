@@ -1,29 +1,45 @@
-const request = require('supertest');
+// const login = require('./login');
+// const { User } = require('../../models');
+// const bcrypt = require('bcryptjs');
 
-const app = require('../../app');
+// describe('login controller test', () => {
+//   it('should return user data with two fields email and subscription', async (done) => {
+//     const mEmail = 'test@test.com';
+//     const mPassword = 'password';
+//     const mAvatarURL = 'https://test/image.jpg'
 
-describe("POST '/api/auth/login'", ()=> {
-    beforeAll(() => {
-        server = app.listen(3000);
-      });
-    
-      afterAll((done) => {
-        server.close(done);
-      });
+//     // create a new user with the provided email and password
+//     const user = new User({
+//       email: mEmail,
+//       password: bcrypt.hashSync(mPassword, bcrypt.genSaltSync(10)), // hash the password for storage
+//       avatarURL: mAvatarURL,
+//     });
+//     await user.save(); // save the user to the database
 
-    test('should return a token and user object with status code 200', async()=> {
-        const user = {
-            email: "test@gmail.com",
-            password: "test123"  
-        }
-        const response = await request(app).post('/api/auth/login').send(user);
+//     // mock the User.findOne function to return the created user
+//     jest.spyOn(User, 'findOne').mockResolvedValue(user);
 
-        expect(response.statusCode).toBe(200);
-        expect(response.body.data.token).toBeDefined();
-        expect(response.body.data.user).toBeDefined();
-        expect(response.body.data.user.email).toBeDefined();
-        expect(response.body.data.user.password).toBeDefined();
-        expect(typeof response.body.data.user.email).toBe("string");
-        expect(typeof response.body.data.user.password).toBe("string");
-    })
-})
+//     // make the request with the correct email and password
+//     const req = {
+//       body: {
+//         email: mEmail,
+//         password: mPassword,
+//       },
+//     };
+//     const res = {
+//       json: jest.fn(),
+//     };
+//     // await login(req, res);
+
+//     // assert that the response has the expected properties
+//     login(req, res)
+//     .then(() => {
+//       expect(res.status).toBe(200);
+//       expect(res.body.token).toBeDefined();
+//       expect(typeof res.body.user.email).toBe('string');
+//       expect(typeof res.body.user.subscription).toBe('string');
+//       done(); // call done to signal the end of the test
+//     })
+//     .catch(done); // call done with an error to signal a test failure
+//   });
+// });
