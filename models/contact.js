@@ -41,16 +41,20 @@ const contactSchema = Schema(
 );
 
 const contactJoiSchema = Joi.object({
-  name: Joi.string().required(),
+  name: Joi.string().required().messages({ 'any.required': 'missing field name' }),
   email: Joi.string().pattern(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/),
   phone: Joi.string()
     .pattern(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)
-    .required(),
+    .required()
+    .messages({ 'any.required': 'missing field phone' }),
   favorite: Joi.bool(),
 });
 
 const statusJoiSchema = Joi.object({
-  favorite: Joi.bool().valid(true, false).required(),
+  favorite: Joi.bool()
+    .valid(true, false)
+    .required('missing field favorite')
+    .messages({ 'any.required': 'missing field favorite' }),
 });
 
 const Contact = model('contact', contactSchema);
