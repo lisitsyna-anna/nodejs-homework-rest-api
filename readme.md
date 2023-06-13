@@ -22,11 +22,17 @@ The following endpoints are available:
 
 ### Authentication
 
-1. POST /api/auth/signup - Register a new user.
+1. `POST /api/auth/signup` - Register a new user.
 
    - Request Body:
-   - email (string, required): User's email address.
-   - password (string, required): User's password.
+
+   ```
+     {
+        "email": "user's name",
+        "password": "user's password"
+     }
+   ```
+
    - Response:
 
    ```
@@ -44,12 +50,16 @@ The following endpoints are available:
 
    ```
 
-2. POST /api/auth/login - Log in with existing credentials.
+2. `POST /api/auth/login` - Log in with existing credentials.
 
 - Request Body:
 
-  - email (string, required): User's email address.
-  - password (string, required): User's password.
+  ```
+   {
+      "email": "user's name",
+      "password": "user's password"
+   }
+  ```
 
   - Response:
 
@@ -68,14 +78,14 @@ The following endpoints are available:
   }
   ```
 
-3. GET /api/auth/logout - Log out the authenticated user.
+3. `GET /api/auth/logout` - Log out the authenticated user.
 
    - Request Headers: Authorization (string, required): Bearer token received upon login.
    - Response: Returns a status code - 204
 
 ### Email Verification:
 
-1.  GET /api/auth/verify/:verificationToken - Verify the user's email address using the provided
+1.  `GET /api/auth/verify/:verificationToken` - Verify the user's email address using the provided
     verification token.
 
     - Request Parameters: verificationToken (string, required): Verification token received during
@@ -91,11 +101,13 @@ The following endpoints are available:
     }
 ```
 
-2.  POST /api/auth/verify - Resend a verification email to the user's email address.
+2.  `POST /api/auth/verify` - Resend a verification email to the user's email address.
 
     - Request Body:
 
-      - email (string, required): User's email address.
+    ```
+      { "email": "user's name"}
+    ```
 
     - Response:
 
@@ -109,15 +121,15 @@ The following endpoints are available:
 
 ### User Operations
 
-1.  GET /api/users/current - Get the details of the currently authenticated user.
+1. `GET /api/users/current` - Get the details of the currently authenticated user.
 
-    - Request Headers:
+- Request Headers:
 
-      - Authorization (string, required): Bearer token received upon login.
+  - Authorization (string, required): Bearer token received upon login.
 
-    - Response:
+- Response:
 
-    ```
+  ```
     {
         status: 'success',
         code: 200,
@@ -125,67 +137,245 @@ The following endpoints are available:
             user: {
                 email,
                 subscription,
+                },
             },
-        },
     }
-    ```
+  ```
 
-2.  PATCH /api/users/ - Update the subscription details of the currently authenticated user.
+2. `PATCH /api/users/` - Update the subscription details of the currently authenticated user.
 
-    - Request Headers:
-      - Authorization (string, required): Bearer token received upon login.
-    - Request body:
+- Request Headers:
+  - Authorization (string, required): Bearer token received upon login.
+- Request Body:
 
-      - subscription: 'starter' or 'pro' or 'business'
+  ```
+  {
+      "subscription": "starter" or "pro" or "business"
+  }
+  ```
 
-    - Response:
+- Response:
 
-    ```
-    {
-     "status": "success",
-     "code": 200,
-     "data": {
-         "result": {
-             "_id": "user id from DB",
-             "email": "user@email.com,
-             "password": "user password",
-             "subscription": "pro",
-             "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODgxZjcxYzY2YmE1YzFjMDY5NWMwOCIsImlhdCI6MTY4NjY1MTI1MywiZXhwIjoxNjg2NjU0ODUzfQ._ia4vM9AVwSX6jPj3NSxi9_cIkEbhq2AM1jscUqgqBI",
-             "avatarURL": "//www.gravatar.com/avatar/b107691a393ac887312681b2e0efe5cb",
-             "verificationToken": null,
-             "verify": true,
-             "createdAt": "created date",
-             "updatedAt": "udated date"
-         }
-     }
-    }
-    ```
+  ```
+  {
+      "status": "success",
+      "code": 200,
+      "data": {
+          "result": {
+              "_id": "user id from DB",
+              "email":"user@email.com,
+              "password": "user password",
+              "subscription": "pro",
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODgxZjcxYzY2YmE1YzFjMDY5NWMwOCIsImlhdCI6MTY4NjY1MTI1MywiZXhwIjoxNjg2NjU0ODUzfQ.\_ia4vM9AVwSX6jPj3NSxi9_cIkEbhq2AM1jscUqgqBI",
+              "avatarURL": "//www.gravatar.com/avatar/b107691a393ac887312681b2e0efe5cb",
+              "verificationToken":null,
+              "verify": true,
+              }
+          }
+  }
+  ```
 
-3.  PATCH /api/users/avatars - Upload a new avatar for the currently authenticated user.
+3. `PATCH /api/users/avatars` - Upload a new avatar for the currently authenticated user.
 
-    - Request Headers:
-      - Authorization (string, required): Bearer token received upon login.
-    - Request body (Content-Type: multipart/form-data):
+- Request Headers:
 
-      - avatar: 'file.jpeg'
+  - Authorization (string, required): Bearer token received upon login.
 
-    - Response:
+- Request Body (Content-Type: multipart/form-data):
 
-    ```
-        {
-            "avatarURL": "avatars/64881f71c66ba5c1c0695c08_cat.jpeg"
-        }
-    ```
+  ```
+  {
+      "avatar": "file.jpeg"
+  }
+  ```
+
+- Response:
+
+  ```
+      {
+          "avatarURL": "avatars/64881f71c66ba5c1c0695c08_cat.jpeg"
+      }
+  ```
 
 ### Contact Operations
 
-- GET /api/contacts/ - Get all contacts (requires authentication).
-- GET /api/contacts/:contactId - Get a specific contact by ID (requires authentication).
-- POST /api/contacts - Add a new contact (requires authentication).
-- PUT /api/contacts/:contactId - Update a contact by ID (requires authentication).
-- PATCH /api/contacts/:contactId/favorite - Update the favorite status of a contact by ID (requires
-  authentication).
-- DELETE /api/contacts/:contactId - Delete a contact by ID (requires authentication).
+1.  `GET /api/contacts/` - Get all contacts (requires authentication).
+
+- Request Headers:
+
+  - Authorization (string, required): Bearer token received upon login.
+
+- Response:
+
+  ```
+      {
+      "status": "succes",
+      "code": 200,
+      "data": {
+          "result": [
+              {
+                  "_id": "user id from DB",
+                  "name": "contact's name",
+                  "phone": "contact's phone",
+                  "favorite": false,
+                  "owner": {
+                      "_id": "user id from DB",
+                      "email": "user@email.com",
+                      "subscription": "pro"
+                  },
+              }
+          ]
+      }
+      }
+  ```
+
+2.  `GET /api/contacts/:contactId` - Get a specific contact by ID (requires authentication).
+
+- Request Headers:
+
+  - Authorization (string, required): Bearer token received upon login.
+
+- Request Params: contactId
+
+- Response:
+
+  ```
+      {
+          "status": "succes",
+          "code": 200,
+          "data": {
+              "result": {
+                  "_id": "conatct's id",
+                  "name": "contact's name",
+                  "phone": "conatct's phone",
+                  "favorite": false,
+                  "owner": "user id from DB",
+              }
+          }
+      }
+  ```
+
+3.  `POST /api/contacts` - Add a new contact (requires authentication).
+
+- Request Headers:
+
+  - Authorization (string, required): Bearer token received upon login.
+
+- Request Body:
+
+  ```
+      {
+          "name": "conatact's name",
+          "phone": "contact's phone"
+      }
+  ```
+
+- Response:
+
+  ```
+     {
+         "status": "succes",
+         "code": 201,
+         "data": {
+             "result": {
+                 "name": "contact's name",
+                 "phone": "contact's phone",
+                 "favorite": false,
+                 "owner": "user id from DB",
+                 "_id": "contact's id from DB",
+             }
+         }
+     }
+  ```
+
+4.  `PUT /api/contacts/:contactId` - Update a contact by ID (requires authentication).
+
+- Request Headers:
+
+  - Authorization (string, required): Bearer token received upon login.
+
+- Request Params: contactId
+
+- Request Body:
+
+  ```
+      {
+          "name": "conatact's name",
+          "phone": "contact's phone"
+      }
+  ```
+
+- Response:
+
+  ```
+     {
+         "status": "succes",
+         "code": 201,
+         "data": {
+             "result": {
+                 "name": "contact's name",
+                 "phone": "contact's phone",
+                 "favorite": false,
+                 "owner": "user id from DB",
+                 "_id": "contact's id from DB",
+             }
+         }
+     }
+  ```
+
+5.  `PATCH /api/contacts/:contactId/favorite` - Update the favorite status of a contact by ID
+    (requires authentication).
+
+- Request Headers:
+
+  - Authorization (string, required): Bearer token received upon login.
+
+- Request Params: contactId
+
+- Request Body:
+
+  ```
+      {
+         "favorite": true or false
+      }
+  ```
+
+- Response:
+
+  ```
+     {
+         "status": "succes",
+         "code": 201,
+         "data": {
+             "result": {
+                 "name": "contact's name",
+                 "phone": "contact's phone",
+                 "favorite": true, (or false)
+                 "owner": "user id from DB",
+                 "_id": "contact's id from DB",
+             }
+         }
+     }
+  ```
+
+6.  `DELETE /api/contacts/:contactId` - Delete a contact by ID (requires authentication).
+
+- Request Headers:
+
+  - Authorization (string, required): Bearer token received upon login.
+
+- Request Params: contactId
+
+- Response:
+
+  ```
+    {
+            "status": "succes",
+        "code": 200,
+        "message": "contact deleted",
+
+    }
+  ```
 
 ## Dependencies
 
