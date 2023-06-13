@@ -10,11 +10,11 @@ and resending verification emails. It also provides endpoints for managing a col
 
 To get started with the backend application, follow these steps:
 
-1. Clone the repository: git clone https://github.com/lisitsyna-anna/nodejs-rest-api
-2. Install the dependencies: npm install
+1. Clone the repository: `git clone https://github.com/lisitsyna-anna/nodejs-rest-api`
+2. Install the dependencies: `npm install`
 3. Set up the necessary environment variables in the .env file. Example you can find in .env.example
    file.
-4. Start the server: npm run start:dev
+4. Start the server: `npm run start:dev`
 
 ## API Endpoints
 
@@ -22,7 +22,7 @@ The following endpoints are available:
 
 ### Authentication
 
-1. `POST /api/auth/signup` - Register a new user.
+1. `POST /api/auth/signup` - register a new user.
 
    - Request Body:
 
@@ -50,7 +50,7 @@ The following endpoints are available:
 
    ```
 
-2. `POST /api/auth/login` - Log in with existing credentials.
+2. `POST /api/auth/login` - log in with existing credentials.
 
 - Request Body:
 
@@ -78,14 +78,14 @@ The following endpoints are available:
   }
   ```
 
-3. `GET /api/auth/logout` - Log out the authenticated user.
+3. `GET /api/auth/logout` - log out the authenticated user.
 
    - Request Headers: Authorization (string, required): Bearer token received upon login.
    - Response: Returns a status code - 204
 
 ### Email Verification:
 
-1.  `GET /api/auth/verify/:verificationToken` - Verify the user's email address using the provided
+1.  `GET /api/auth/verify/:verificationToken` - verify the user's email address using the provided
     verification token.
 
     - Request Parameters: verificationToken (string, required): Verification token received during
@@ -101,7 +101,7 @@ The following endpoints are available:
     }
 ```
 
-2.  `POST /api/auth/verify` - Resend a verification email to the user's email address.
+2.  `POST /api/auth/verify` - resend a verification email to the user's email address.
 
     - Request Body:
 
@@ -121,7 +121,7 @@ The following endpoints are available:
 
 ### User Operations
 
-1. `GET /api/users/current` - Get the details of the currently authenticated user.
+1. `GET /api/users/current` - get the details of the currently authenticated user.
 
 - Request Headers:
 
@@ -142,7 +142,7 @@ The following endpoints are available:
     }
   ```
 
-2. `PATCH /api/users/` - Update the subscription details of the currently authenticated user.
+2. `PATCH /api/users/` - update the subscription details of the currently authenticated user.
 
 - Request Headers:
   - Authorization (string, required): Bearer token received upon login.
@@ -175,7 +175,7 @@ The following endpoints are available:
   }
   ```
 
-3. `PATCH /api/users/avatars` - Upload a new avatar for the currently authenticated user.
+3. `PATCH /api/users/avatars` - upload a new avatar for the currently authenticated user.
 
 - Request Headers:
 
@@ -199,7 +199,7 @@ The following endpoints are available:
 
 ### Contact Operations
 
-1.  `GET /api/contacts/` - Get all contacts (requires authentication).
+1.  `GET /api/contacts/` - get all contacts (requires authentication).
 
 - Request Headers:
 
@@ -229,13 +229,13 @@ The following endpoints are available:
       }
   ```
 
-2.  `GET /api/contacts/:contactId` - Get a specific contact by ID (requires authentication).
+2.  `GET /api/contacts/:contactId` - get a specific contact by ID (requires authentication).
 
 - Request Headers:
 
   - Authorization (string, required): Bearer token received upon login.
 
-- Request Params: contactId
+- Request Parameters: contactId (string, required)
 
 - Response:
 
@@ -255,7 +255,7 @@ The following endpoints are available:
       }
   ```
 
-3.  `POST /api/contacts` - Add a new contact (requires authentication).
+3.  `POST /api/contacts` - add a new contact (requires authentication).
 
 - Request Headers:
 
@@ -288,13 +288,13 @@ The following endpoints are available:
      }
   ```
 
-4.  `PUT /api/contacts/:contactId` - Update a contact by ID (requires authentication).
+4.  `PUT /api/contacts/:contactId` - update a contact by ID (requires authentication).
 
 - Request Headers:
 
   - Authorization (string, required): Bearer token received upon login.
 
-- Request Params: contactId
+- Request Parameters: contactId (string, required)
 
 - Request Body:
 
@@ -323,14 +323,14 @@ The following endpoints are available:
      }
   ```
 
-5.  `PATCH /api/contacts/:contactId/favorite` - Update the favorite status of a contact by ID
+5.  `PATCH /api/contacts/:contactId/favorite` - update the favorite status of a contact by ID
     (requires authentication).
 
 - Request Headers:
 
   - Authorization (string, required): Bearer token received upon login.
 
-- Request Params: contactId
+- Request Parameters: contactId (string, required)
 
 - Request Body:
 
@@ -358,13 +358,13 @@ The following endpoints are available:
      }
   ```
 
-6.  `DELETE /api/contacts/:contactId` - Delete a contact by ID (requires authentication).
+6.  `DELETE /api/contacts/:contactId` - delete a contact by ID (requires authentication).
 
 - Request Headers:
 
   - Authorization (string, required): Bearer token received upon login.
 
-- Request Params: contactId
+- Request Parameters: contactId (string, required)
 
 - Response:
 
@@ -395,15 +395,9 @@ The backend application uses the following dependencies:
 - Nodemon: Development tool that automatically restarts the node application when file changes in
   the directory are detected.
 
-## Environment Variables
+## Contact Information
 
-Create a .env file in the root directory of the project and add the following environment variables:
+If you have any questions or feedback, please feel free to contact me:
 
-- DB_HOST=<your-mongodb-connection-uri>
-- PORT= <your-port>
-- SECRET_KEY= <your-jwt-secret>
-- SENDGRID_API_KEY= <your-sendgrid-api-key>
-- BASE_URL= <your-base-url>
-
-Make sure to replace <your-mongodb-connection-uri>, <your-jwt-secret>, <your-sendgrid-api-key>,
-<your-base-url>, and <your-port> with your actual values.
+- Email: [anna.lisicina9309@gmail.com](mailto:anna.lisicina9309@gmail.com)
+- GitHub: [lisitsyna-anna](https://github.com/lisitsyna-anna)
