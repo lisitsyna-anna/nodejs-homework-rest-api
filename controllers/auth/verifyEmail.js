@@ -14,6 +14,7 @@ const verifyEmail = async (req, res) => {
     status: 'success',
     code: 200,
     message: 'Verification successful',
+    verify: true,
   });
 };
 
